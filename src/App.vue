@@ -78,7 +78,7 @@
             ]"
             :style="{
               borderRadius: '12px',
-              background: 'rgba(44, 46, 53, 0.60)',
+              background: 'rgba(37, 99, 235, 0.20)',
               boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
               backdropFilter: 'blur(2.3063063621520996px)'
             }"
@@ -107,7 +107,7 @@
               ]"
               :style="{
                 borderRadius: '12px',
-                background: 'rgba(44, 46, 53, 0.60)',
+                background: 'rgba(37, 99, 235, 0.20)',
                 boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
                 backdropFilter: 'blur(2.3063063621520996px)'
               }"
@@ -127,7 +127,7 @@
               ]"
               :style="{
                 borderRadius: '12px',
-                background: 'rgba(44, 46, 53, 0.60)',
+                background: 'rgba(37, 99, 235, 0.20)',
                 boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
                 backdropFilter: 'blur(2.3063063621520996px)'
               }"
