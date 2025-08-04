@@ -50,7 +50,7 @@
     <div class="w-full max-w-2xl mx-auto space-y-6 relative z-10 pb-20">
       <!-- Business Description Section -->
       <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10">
-        <h2 class="text-white text-2xl font-normal text-center mb-6">Business Description or Idea</h2>
+        <h2 class="text-white text-2xl font-normal text-left mb-6">Business Description or Idea</h2>
         <div style="border-radius: 12px; background: rgba(37, 99, 235, 0.20); box-shadow: 0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset; backdrop-filter: blur(2.3063063621520996px);" class="p-6 min-h-[165px] transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg focus-within:shadow-blue-500/30">
           <textarea
             v-model="businessDescription"
@@ -64,8 +64,8 @@
       <!-- Mood Scale Section -->
       <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10">
         <div class="mb-6">
-          <h2 class="text-white text-2xl font-normal text-center mb-2">Mood Scale</h2>
-          <p class="text-white text-lg font-normal text-center">Mood Scale</p>
+          <h2 class="text-white text-2xl font-normal text-left mb-2">Mood Scale</h2>
+          <p class="text-white text-lg font-normal text-left">Mood Scale</p>
         </div>
         <div class="grid grid-cols-7 gap-4">
           <div
@@ -92,8 +92,8 @@
       <!-- Interests Section -->
       <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10">
         <div class="mb-6">
-          <h2 class="text-white text-2xl font-normal text-center mb-2">Your Interests</h2>
-          <p class="text-white text-lg font-normal text-center">Pick all that apply and add any custom interest</p>
+          <h2 class="text-white text-2xl font-normal text-left mb-2">Your Interests</h2>
+          <p class="text-white text-lg font-normal text-left">Pick all that apply and add any custom interest</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="space-y-3">
@@ -113,7 +113,7 @@
               }"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="text-white text-xs font-normal text-center flex-1">{{ interest.name }}</div>
+              <div class="text-white text-xs font-normal text-left flex-1">{{ interest.name }}</div>
             </div>
           </div>
           <div class="space-y-3">
@@ -133,7 +133,7 @@
               }"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="text-white text-xs font-normal text-center flex-1">{{ interest.name }}</div>
+              <div class="text-white text-xs font-normal text-left flex-1">{{ interest.name }}</div>
             </div>
           </div>
         </div>
