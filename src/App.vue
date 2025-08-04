@@ -218,6 +218,14 @@ function toggleInterest(interestName: string) {
   }
 }
 
+function toggleSettings() {
+  showSettings.value = !showSettings.value
+}
+
+function cycleBackground() {
+  currentBackgroundIndex.value = (currentBackgroundIndex.value + 1) % backgroundImages.length
+}
+
 function handleContinue() {
   console.log('Form data:', {
     businessDescription: businessDescription.value,
