@@ -73,12 +73,18 @@
             :key="mood.value"
             @click="selectedMood = mood.value"
             :class="[
-              'bg-white/70 rounded-2xl p-4 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-white/80',
-              selectedMood === mood.value ? 'ring-2 ring-blue-400 bg-white/90' : ''
+              'p-4 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200',
+              selectedMood === mood.value ? 'ring-2 ring-blue-400' : ''
             ]"
+            :style="{
+              borderRadius: '12px',
+              background: 'rgba(44, 46, 53, 0.60)',
+              boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
+              backdropFilter: 'blur(2.3063063621520996px)'
+            }"
           >
             <div class="text-4xl">{{ mood.emoji }}</div>
-            <div class="text-black text-2xl font-normal">{{ mood.value }}</div>
+            <div class="text-white text-2xl font-normal">{{ mood.value }}</div>
           </div>
         </div>
       </div>
@@ -197,7 +203,7 @@ const moods: Mood[] = [
 const leftColumnInterests: Interest[] = [
   { emoji: '🍎', name: 'Healthy Eating' },
   { emoji: '🚴‍♂️', name: 'Cycling for Fitness' },
-  { emoji: '🧘‍♀���', name: 'Mindfulness Practices' },
+  { emoji: '🧘‍♀�����', name: 'Mindfulness Practices' },
   { emoji: '🎮', name: 'Video Game Trends' }
 ]
 
