@@ -1,6 +1,54 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 px-4 py-8 flex items-center justify-center">
-    <div class="w-full max-w-2xl mx-auto space-y-6">
+  <div
+    class="min-h-screen px-4 py-8 flex items-center justify-center relative overflow-hidden transition-all duration-700"
+    :style="backgroundStyle"
+  >
+    <!-- Background overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-slate-100/60 to-slate-200/60 backdrop-blur-sm"></div>
+
+    <!-- Settings Button -->
+    <button
+      @click="toggleSettings"
+      class="fixed top-6 right-6 z-50 backdrop-blur-md bg-white/20 border border-white/30 rounded-full p-3 text-white hover:bg-white/30 transition-all duration-200 shadow-lg"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      </svg>
+    </button>
+
+    <!-- Settings Panel -->
+    <div
+      v-if="showSettings"
+      class="fixed top-20 right-6 z-40 backdrop-blur-md bg-white/20 border border-white/30 rounded-2xl p-6 shadow-xl w-80 transition-all duration-300"
+    >
+      <h3 class="text-white text-lg font-medium mb-4">Settings</h3>
+
+      <div class="space-y-4">
+        <div>
+          <label class="text-white text-sm font-medium block mb-2">Background</label>
+          <button
+            @click="cycleBackground"
+            class="w-full backdrop-blur-md bg-blue-600/20 border border-white/30 rounded-xl px-4 py-3 text-white text-sm hover:bg-blue-600/30 transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Change Background
+          </button>
+          <p class="text-white/70 text-xs mt-1">Current: {{ backgroundImages[currentBackgroundIndex].name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Click outside to close settings -->
+    <div
+      v-if="showSettings"
+      @click="showSettings = false"
+      class="fixed inset-0 z-30"
+    ></div>
+
+    <div class="w-full max-w-2xl mx-auto space-y-6 relative z-10">
       <!-- Business Description Section -->
       <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10">
         <h2 class="text-white text-2xl font-normal text-center mb-6">Business Description or Idea</h2>
