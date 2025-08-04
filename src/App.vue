@@ -217,7 +217,7 @@ const moods: Mood[] = [
 const leftColumnInterests: Interest[] = [
   { emoji: '🍎', name: 'Healthy Eating' },
   { emoji: '🚴‍♂️', name: 'Cycling for Fitness' },
-  { emoji: '🧘‍♀�����', name: 'Mindfulness Practices' },
+  { emoji: '🧘‍♀️', name: 'Mindfulness Practices' },
   { emoji: '🎮', name: 'Video Game Trends' }
 ]
 
