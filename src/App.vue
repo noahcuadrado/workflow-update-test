@@ -49,7 +49,7 @@
 
     <div class="w-full max-w-2xl mx-auto space-y-6 relative z-10">
       <!-- Business Description Section -->
-      <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10">
+      <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10">
         <h2 class="text-white text-2xl font-normal text-center mb-6">Business Description or Idea</h2>
         <div class="bg-white/70 rounded-2xl p-6 min-h-[165px]">
           <textarea
