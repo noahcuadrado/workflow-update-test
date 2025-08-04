@@ -51,11 +51,11 @@
       <!-- Business Description Section -->
       <div class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10">
         <h2 class="text-white text-2xl font-normal text-center mb-6">Business Description or Idea</h2>
-        <div style="border-radius: 12px; background: rgba(37, 99, 235, 0.20); box-shadow: 0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset; backdrop-filter: blur(2.3063063621520996px);" class="p-6 min-h-[165px]">
+        <div style="border-radius: 12px; background: rgba(37, 99, 235, 0.20); box-shadow: 0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset; backdrop-filter: blur(2.3063063621520996px);" class="p-6 min-h-[165px] transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg focus-within:shadow-blue-500/30">
           <textarea
             v-model="businessDescription"
             placeholder="Describe your business or idea here"
-            class="w-full h-full bg-transparent text-white placeholder-gray-300 text-sm resize-none outline-none"
+            class="w-full h-full bg-transparent text-white placeholder-gray-300 text-sm resize-none outline-none transition-all duration-200"
             rows="6"
           ></textarea>
         </div>
