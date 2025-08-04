@@ -156,7 +156,7 @@ const businessDescription = ref('')
 const selectedMood = ref<number | null>(null)
 const selectedInterests = ref<string[]>([])
 const showSettings = ref(false)
-const currentBackgroundIndex = ref(0)
+const currentBackgroundIndex = ref(1)
 
 const backgroundImages: BackgroundImage[] = [
   { url: '', name: 'Default Gradient' },
@@ -197,7 +197,7 @@ const moods: Mood[] = [
 const leftColumnInterests: Interest[] = [
   { emoji: '🍎', name: 'Healthy Eating' },
   { emoji: '🚴‍♂️', name: 'Cycling for Fitness' },
-  { emoji: '🧘‍♀️', name: 'Mindfulness Practices' },
+  { emoji: '🧘‍♀���', name: 'Mindfulness Practices' },
   { emoji: '🎮', name: 'Video Game Trends' }
 ]
 
