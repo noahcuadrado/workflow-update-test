@@ -3,8 +3,7 @@
     class="min-h-screen px-4 py-8 flex items-center justify-center relative overflow-hidden transition-all duration-700"
     :style="backgroundStyle"
   >
-    <!-- Background overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-100/60 to-slate-200/60 backdrop-blur-sm"></div>
+
 
     <!-- Settings Button -->
     <button
