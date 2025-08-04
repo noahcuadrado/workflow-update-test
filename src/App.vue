@@ -136,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 interface Mood {
   emoji: string
@@ -148,9 +148,42 @@ interface Interest {
   name: string
 }
 
+interface BackgroundImage {
+  url: string
+  name: string
+}
+
 const businessDescription = ref('')
 const selectedMood = ref<number | null>(null)
 const selectedInterests = ref<string[]>([])
+const showSettings = ref(false)
+const currentBackgroundIndex = ref(0)
+
+const backgroundImages: BackgroundImage[] = [
+  { url: '', name: 'Default Gradient' },
+  { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop', name: 'Mountain Lake' },
+  { url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop', name: 'Forest Path' },
+  { url: 'https://images.unsplash.com/photo-1501436513145-30f24e19fcc4?w=1920&h=1080&fit=crop', name: 'Ocean Sunset' },
+  { url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&h=1080&fit=crop', name: 'Desert Canyon' },
+  { url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&h=1080&fit=crop', name: 'Aurora Borealis' },
+  { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop', name: 'Starry Night' },
+  { url: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&h=1080&fit=crop', name: 'City Lights' }
+]
+
+const backgroundStyle = computed(() => {
+  const currentBg = backgroundImages[currentBackgroundIndex.value]
+  if (currentBg.url) {
+    return {
+      backgroundImage: `url('${currentBg.url}')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }
+  }
+  return {
+    background: 'linear-gradient(to bottom right, rgb(241 245 249), rgb(226 232 240))'
+  }
+})
 
 const moods: Mood[] = [
   { emoji: '😟', value: 1 },
