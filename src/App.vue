@@ -138,12 +138,14 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- Continue Button -->
-      <div class="flex justify-end">
+    <!-- Sticky Footer with Continue Button -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md bg-black/10 border-t border-white/20 p-4 shadow-lg">
+      <div class="w-full max-w-2xl mx-auto flex justify-end">
         <button
           @click="handleContinue"
-          class="backdrop-blur-md bg-blue-600/10 border border-white/10 rounded-3xl px-8 py-3 text-white text-sm font-normal hover:bg-blue-600/20 transition-all duration-200 shadow-inner"
+          class="backdrop-blur-md bg-blue-600/20 border border-white/30 rounded-3xl px-8 py-3 text-white text-sm font-normal hover:bg-blue-600/30 transition-all duration-200 shadow-inner"
         >
           Continue
         </button>
