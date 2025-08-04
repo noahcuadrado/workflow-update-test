@@ -102,8 +102,8 @@
               :key="interest.name"
               @click="toggleInterest(interest.name)"
               :class="[
-                'p-4 flex items-center gap-3 cursor-pointer transition-all duration-200',
-                selectedInterests.includes(interest.name) ? 'ring-2 ring-blue-400' : ''
+                'p-4 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 active:brightness-110',
+                selectedInterests.includes(interest.name) ? 'ring-2 ring-blue-400 scale-105 shadow-lg shadow-blue-500/30' : ''
               ]"
               :style="{
                 borderRadius: '12px',
