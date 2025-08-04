@@ -74,7 +74,7 @@
             @click="selectedMood = mood.value"
             :class="[
               'p-4 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 active:brightness-110',
-              selectedMood === mood.value ? 'ring-2 ring-blue-400 scale-105 shadow-lg shadow-blue-500/30' : ''
+              selectedMood === mood.value ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-105 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300' : ''
             ]"
             :style="{
               borderRadius: '12px',
