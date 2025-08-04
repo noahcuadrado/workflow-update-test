@@ -102,12 +102,18 @@
               :key="interest.name"
               @click="toggleInterest(interest.name)"
               :class="[
-                'bg-white/70 rounded-2xl p-4 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-white/80',
-                selectedInterests.includes(interest.name) ? 'ring-2 ring-blue-400 bg-white/90' : ''
+                'p-4 flex items-center gap-3 cursor-pointer transition-all duration-200',
+                selectedInterests.includes(interest.name) ? 'ring-2 ring-blue-400' : ''
               ]"
+              :style="{
+                borderRadius: '12px',
+                background: 'rgba(44, 46, 53, 0.60)',
+                boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
+                backdropFilter: 'blur(2.3063063621520996px)'
+              }"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="text-black text-xs font-normal text-center flex-1">{{ interest.name }}</div>
+              <div class="text-white text-xs font-normal text-center flex-1">{{ interest.name }}</div>
             </div>
           </div>
           <div class="space-y-3">
