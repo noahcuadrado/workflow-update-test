@@ -105,7 +105,7 @@
               <label class="theme-text text-xs block mb-1 theme-font">Type</label>
               <select
                 :value="currentTheme.background.type"
-                @change="updateThemeProperty('background', { ...currentTheme.background, type: ($event.target as HTMLSelectElement).value as any })"
+                @change="updateThemePropertyWithCustom('background', { ...currentTheme.background, type: ($event.target as HTMLSelectElement).value as any })"
                 class="w-full theme-input rounded-xl px-3 py-2 text-xs theme-font"
               >
                 <option value="image">Image</option>
