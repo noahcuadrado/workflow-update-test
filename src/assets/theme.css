@@ -1,0 +1,136 @@
+/* Theme CSS Variables and Utilities */
+:root {
+  /* Default theme variables - will be overridden by JS */
+  --theme-font-family: 'Inter', system-ui, sans-serif;
+  --theme-color-primary: #3b82f6;
+  --theme-color-secondary: #64748b;
+  --theme-color-accent: #06b6d4;
+  --theme-color-text: #ffffff;
+  --theme-color-text-secondary: #e2e8f0;
+  --theme-color-background: #0f172a;
+  --theme-color-surface: rgba(255, 255, 255, 0.1);
+  --theme-color-border: rgba(255, 255, 255, 0.2);
+  
+  /* Input colors */
+  --theme-input-background: rgba(59, 130, 246, 0.2);
+  --theme-input-border: rgba(255, 255, 255, 0.3);
+  --theme-input-text: #ffffff;
+  --theme-input-placeholder: #d1d5db;
+  --theme-input-focus: #3b82f6;
+  
+  /* Glassmorphism */
+  --theme-glass-blur: 12px;
+  --theme-glass-opacity: 0.1;
+  --theme-glass-border-width: 1px;
+  --theme-glass-border-opacity: 0.2;
+  
+  /* Animation */
+  --theme-animation-duration: 300ms;
+}
+
+/* Theme utility classes */
+.theme-font {
+  font-family: var(--theme-font-family);
+}
+
+.theme-text {
+  color: var(--theme-color-text);
+}
+
+.theme-text-secondary {
+  color: var(--theme-color-text-secondary);
+}
+
+.theme-bg-primary {
+  background-color: var(--theme-color-primary);
+}
+
+.theme-bg-secondary {
+  background-color: var(--theme-color-secondary);
+}
+
+.theme-bg-surface {
+  background-color: var(--theme-color-surface);
+}
+
+.theme-border {
+  border-color: var(--theme-color-border);
+}
+
+.theme-glass {
+  backdrop-filter: blur(var(--theme-glass-blur));
+  background-color: var(--theme-color-surface);
+  border: var(--theme-glass-border-width) solid rgba(255, 255, 255, var(--theme-glass-border-opacity));
+}
+
+.theme-input {
+  background-color: var(--theme-input-background);
+  border-color: var(--theme-input-border);
+  color: var(--theme-input-text);
+  transition: all var(--theme-animation-duration) ease;
+}
+
+.theme-input::placeholder {
+  color: var(--theme-input-placeholder);
+}
+
+.theme-input:focus {
+  border-color: var(--theme-input-focus);
+  box-shadow: 0 0 0 3px rgba(var(--theme-input-focus), 0.1);
+}
+
+.theme-transition {
+  transition: all var(--theme-animation-duration) ease;
+}
+
+/* Theme-aware hover effects */
+.theme-hover:hover {
+  background-color: rgba(var(--theme-color-primary), 0.1);
+  transform: scale(1.02);
+}
+
+.theme-button {
+  background-color: var(--theme-input-background);
+  border: var(--theme-glass-border-width) solid var(--theme-input-border);
+  color: var(--theme-color-text);
+  transition: all var(--theme-animation-duration) ease;
+}
+
+.theme-button:hover {
+  background-color: rgba(var(--theme-color-primary), 0.3);
+  border-color: var(--theme-color-primary);
+}
+
+.theme-button:focus {
+  outline: 2px solid var(--theme-color-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive glass effects */
+@media (max-width: 768px) {
+  :root {
+    --theme-glass-blur: 8px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --theme-glass-opacity: 0.3;
+    --theme-glass-border-opacity: 0.5;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --theme-animation-duration: 0ms;
+  }
+  
+  .theme-transition,
+  .theme-input,
+  .theme-button,
+  .theme-hover {
+    transition: none;
+  }
+}
