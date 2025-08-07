@@ -337,14 +337,35 @@ class ThemeApiService implements ThemeAPI {
   // Utility methods for theme management
   async loadThemeFromFile(file: File): Promise<ThemeConfig> {
     return new Promise((resolve, reject) => {
+      if (!file) {
+        reject(new Error('No file provided'))
+        return
+      }
+
+      if (!file.name.endsWith('.json')) {
+        reject(new Error('Please select a JSON file'))
+        return
+      }
+
+      if (file.size > 1024 * 1024) { // 1MB limit
+        reject(new Error('File too large (max 1MB)'))
+        return
+      }
+
       const reader = new FileReader()
       reader.onload = (e) => {
         try {
           const content = e.target?.result as string
+          if (!content) {
+            reject(new Error('File appears to be empty'))
+            return
+          }
+
           const theme = this.loadFromJSON(content)
           resolve(theme)
         } catch (error) {
-          reject(error)
+          console.error('Error loading theme from file:', error)
+          reject(new Error(`Failed to load theme: ${error.message}`))
         }
       }
       reader.onerror = () => reject(new Error('Failed to read file'))
