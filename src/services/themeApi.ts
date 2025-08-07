@@ -53,7 +53,7 @@ class ThemeApiService implements ThemeAPI {
 
       console.log('Theme saved to API successfully')
     } catch (error) {
-      console.log('API save failed, using local storage fallback:', error.message)
+      console.log('API save failed, using local storage fallback:', error instanceof Error ? error.message : 'Unknown error')
       // Always fallback to local storage (expected behavior for frontend-only app)
       this.saveLocalTheme(theme)
     }
