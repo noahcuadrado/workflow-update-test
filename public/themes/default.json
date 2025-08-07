@@ -1,0 +1,46 @@
+{
+  "id": "default",
+  "name": "Default Theme",
+  "description": "Default blue theme with glassmorphism effects",
+  "font": {
+    "family": "Inter",
+    "weights": [300, 400, 500, 600, 700],
+    "fallback": ["system-ui", "sans-serif"]
+  },
+  "colors": {
+    "primary": "#3b82f6",
+    "secondary": "#64748b",
+    "accent": "#06b6d4",
+    "text": "#ffffff",
+    "textSecondary": "#e2e8f0",
+    "background": "#0f172a",
+    "surface": "rgba(255, 255, 255, 0.1)",
+    "border": "rgba(255, 255, 255, 0.2)",
+    "input": {
+      "background": "rgba(59, 130, 246, 0.2)",
+      "border": "rgba(255, 255, 255, 0.3)",
+      "text": "#ffffff",
+      "placeholder": "#d1d5db",
+      "focus": "#3b82f6"
+    }
+  },
+  "background": {
+    "type": "image",
+    "value": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop",
+    "position": "center",
+    "size": "cover",
+    "repeat": "no-repeat"
+  },
+  "glassmorphism": {
+    "blur": 12,
+    "opacity": 0.1,
+    "border": {
+      "width": 1,
+      "opacity": 0.2
+    }
+  },
+  "animations": {
+    "enabled": true,
+    "duration": 300
+  }
+}

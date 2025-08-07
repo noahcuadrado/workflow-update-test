@@ -1,0 +1,101 @@
+[
+  {
+    "id": "glassmorphism",
+    "name": "Glassmorphism",
+    "description": "Modern glass effect with vibrant background",
+    "config": {
+      "id": "glassmorphism",
+      "name": "Glassmorphism",
+      "description": "Modern glass effect with vibrant background",
+      "font": {
+        "family": "Inter",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#3b82f6",
+        "secondary": "#64748b",
+        "accent": "#06b6d4",
+        "text": "#ffffff",
+        "textSecondary": "#e2e8f0",
+        "background": "#0f172a",
+        "surface": "rgba(255, 255, 255, 0.1)",
+        "border": "rgba(255, 255, 255, 0.2)",
+        "input": {
+          "background": "rgba(59, 130, 246, 0.2)",
+          "border": "rgba(255, 255, 255, 0.3)",
+          "text": "#ffffff",
+          "placeholder": "#d1d5db",
+          "focus": "#3b82f6"
+        }
+      },
+      "background": {
+        "type": "image",
+        "value": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop",
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat"
+      },
+      "glassmorphism": {
+        "blur": 16,
+        "opacity": 0.1,
+        "border": {
+          "width": 1,
+          "opacity": 0.2
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 300
+      }
+    }
+  },
+  {
+    "id": "flat",
+    "name": "Flat",
+    "description": "Clean flat design with solid colors",
+    "config": {
+      "id": "flat",
+      "name": "Flat",
+      "description": "Clean flat design with solid colors",
+      "font": {
+        "family": "Source Sans Pro",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#2563eb",
+        "secondary": "#475569",
+        "accent": "#0891b2",
+        "text": "#1e293b",
+        "textSecondary": "#64748b",
+        "background": "#f8fafc",
+        "surface": "#ffffff",
+        "border": "#e2e8f0",
+        "input": {
+          "background": "#ffffff",
+          "border": "#d1d5db",
+          "text": "#1e293b",
+          "placeholder": "#9ca3af",
+          "focus": "#2563eb"
+        }
+      },
+      "background": {
+        "type": "solid",
+        "value": "#f1f5f9"
+      },
+      "glassmorphism": {
+        "blur": 0,
+        "opacity": 1.0,
+        "border": {
+          "width": 1,
+          "opacity": 1.0
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 200
+      }
+    }
+  }
+]

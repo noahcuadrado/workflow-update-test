@@ -1,1 +1,8 @@
 @import './base.css';
+@import './theme.css';
+
+#app {
+  font-family: var(--theme-font-family);
+  color: var(--theme-color-text);
+  transition: all var(--theme-animation-duration) ease;
+}
