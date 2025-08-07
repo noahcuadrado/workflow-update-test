@@ -262,9 +262,9 @@
                   ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                   : '',
               ]"
-              :style="{ 
-                backgroundColor: currentTheme?.colors.input.background || 'rgba(59, 130, 246, 0.2)',
-                borderColor: currentTheme?.colors.input.border || 'rgba(255, 255, 255, 0.3)',
+              :style="{
+                backgroundColor: currentTheme?.colors.section || 'rgba(59, 130, 246, 0.15)',
+                borderColor: currentTheme?.colors.border || 'rgba(255, 255, 255, 0.3)',
                 backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
               }"
             >
