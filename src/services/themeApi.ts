@@ -10,11 +10,25 @@ class ThemeApiService implements ThemeAPI {
 
   async getTheme(id: string): Promise<ThemeConfig> {
     try {
-      const response = await fetch(`${this.baseUrl}/${id}`)
-      if (!response.ok) {
-        throw new Error(`Failed to fetch theme: ${response.statusText}`)
+      // Try to load from local JSON file first
+      const response = await fetch(`/themes/${id}.json`)
+      if (response.ok) {
+        const text = await response.text()
+        if (text.trim()) {
+          return JSON.parse(text)
+        }
       }
-      return await response.json()
+
+      // If that fails, try the API endpoint
+      const apiResponse = await fetch(`${this.baseUrl}/${id}`)
+      if (apiResponse.ok) {
+        const apiText = await apiResponse.text()
+        if (apiText.trim()) {
+          return JSON.parse(apiText)
+        }
+      }
+
+      throw new Error(`Theme ${id} not found`)
     } catch (error) {
       console.error('Error fetching theme:', error)
       // Fallback to local storage or default
