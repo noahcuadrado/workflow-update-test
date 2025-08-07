@@ -44,11 +44,25 @@ class ThemeApiService implements ThemeAPI {
 
   async listPresets(): Promise<ThemePreset[]> {
     try {
-      const response = await fetch(`${this.baseUrl}/presets`)
-      if (!response.ok) {
-        throw new Error(`Failed to fetch presets: ${response.statusText}`)
+      // Try to load from local JSON file first (since this is a frontend-only app)
+      const response = await fetch('/themes/presets.json')
+      if (response.ok) {
+        const text = await response.text()
+        if (text.trim()) {
+          return JSON.parse(text)
+        }
       }
-      return await response.json()
+
+      // If that fails, try the API endpoint
+      const apiResponse = await fetch(`${this.baseUrl}/presets`)
+      if (apiResponse.ok) {
+        const apiText = await apiResponse.text()
+        if (apiText.trim()) {
+          return JSON.parse(apiText)
+        }
+      }
+
+      throw new Error('No valid preset data found')
     } catch (error) {
       console.error('Error fetching presets:', error)
       // Return local presets as fallback
