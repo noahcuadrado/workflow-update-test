@@ -38,6 +38,7 @@ class ThemeApiService implements ThemeAPI {
 
   async saveTheme(theme: ThemeConfig): Promise<void> {
     try {
+      // Try API first (this will likely fail in frontend-only environment)
       const response = await fetch(`${this.baseUrl}/${theme.id}`, {
         method: 'PUT',
         headers: {
@@ -45,13 +46,15 @@ class ThemeApiService implements ThemeAPI {
         },
         body: JSON.stringify(theme),
       })
-      
+
       if (!response.ok) {
-        throw new Error(`Failed to save theme: ${response.statusText}`)
+        throw new Error(`API save failed: ${response.statusText}`)
       }
+
+      console.log('Theme saved to API successfully')
     } catch (error) {
-      console.error('Error saving theme:', error)
-      // Fallback to local storage
+      console.log('API save failed, using local storage fallback:', error.message)
+      // Always fallback to local storage (expected behavior for frontend-only app)
       this.saveLocalTheme(theme)
     }
   }
