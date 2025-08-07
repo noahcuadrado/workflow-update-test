@@ -490,7 +490,7 @@ function createCustomPresetIfNeeded(updatedTheme: any) {
   return updatedTheme
 }
 
-function updateThemePropertyWithCustom(property: string, value: any) {
+function updateThemePropertyWithCustom(property: keyof ThemeConfig, value: any) {
   if (currentTheme.value) {
     const updatedTheme = {
       ...currentTheme.value,
