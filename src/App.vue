@@ -85,7 +85,7 @@
             <ColorPicker
               :model-value="currentTheme.colors.input.background"
               @update:model-value="updateThemeColor('input.background', $event)"
-              label="Input Background"
+              label="Input Background Color"
               position="right"
             />
             <ColorPicker
