@@ -216,8 +216,8 @@ class ThemeApiService implements ThemeAPI {
     if (!theme.colors || typeof theme.colors !== 'object') {
       throw new Error('Colors configuration must be an object')
     }
-    if (!theme.colors.primary || !theme.colors.text) {
-      throw new Error('Invalid colors configuration: missing primary or text colors')
+    if (!theme.colors.section || !theme.colors.text) {
+      throw new Error('Invalid colors configuration: missing section or text colors')
     }
     if (!theme.colors.input || typeof theme.colors.input !== 'object') {
       throw new Error('Invalid colors configuration: input colors must be an object')
