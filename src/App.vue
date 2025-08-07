@@ -60,54 +60,40 @@
 
         <!-- Font Selection -->
         <div v-if="currentTheme">
-          <label class="theme-text text-sm font-medium block mb-2 theme-font">Font Family</label>
-          <select
-            :value="currentTheme.font.family"
-            @change="updateThemeProperty('font', { ...currentTheme.font, family: ($event.target as HTMLSelectElement).value })"
-            class="w-full theme-input rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 theme-font"
-          >
-            <option value="Inter">Inter</option>
-            <option value="Poppins">Poppins</option>
-            <option value="Nunito">Nunito</option>
-            <option value="Roboto">Roboto</option>
-            <option value="Source Sans Pro">Source Sans Pro</option>
-            <option value="Open Sans">Open Sans</option>
-            <option value="Lato">Lato</option>
-            <option value="Montserrat">Montserrat</option>
-          </select>
+          <GoogleFontSearch
+            :model-value="currentTheme.font.family"
+            @update:model-value="updateThemeProperty('font', { ...currentTheme.font, family: $event })"
+          />
         </div>
 
         <!-- Color Customization -->
         <div v-if="currentTheme">
           <label class="theme-text text-sm font-medium block mb-3 theme-font">Colors</label>
           <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <label class="theme-text text-xs theme-font">Primary</label>
-              <input
-                type="color"
-                :value="currentTheme.colors.primary"
-                @input="updateThemeColor('primary', ($event.target as HTMLInputElement).value)"
-                class="w-12 h-8 rounded border border-white/30"
-              />
-            </div>
-            <div class="flex items-center justify-between">
-              <label class="theme-text text-xs theme-font">Text Color</label>
-              <input
-                type="color"
-                :value="currentTheme.colors.text"
-                @input="updateThemeColor('text', ($event.target as HTMLInputElement).value)"
-                class="w-12 h-8 rounded border border-white/30"
-              />
-            </div>
-            <div class="flex items-center justify-between">
-              <label class="theme-text text-xs theme-font">Input Background</label>
-              <input
-                type="color"
-                :value="currentTheme.colors.input.background.replace(/rgba?\([^)]+\)/g, '#3b82f6')"
-                @input="updateThemeColor('input.background', `rgba(${parseInt(($event.target as HTMLInputElement).value.slice(1, 3), 16)}, ${parseInt(($event.target as HTMLInputElement).value.slice(3, 5), 16)}, ${parseInt(($event.target as HTMLInputElement).value.slice(5, 7), 16)}, 0.2)`)"
-                class="w-12 h-8 rounded border border-white/30"
-              />
-            </div>
+            <ColorPicker
+              :model-value="currentTheme.colors.primary"
+              @update:model-value="updateThemeColor('primary', $event)"
+              label="Primary"
+              position="right"
+            />
+            <ColorPicker
+              :model-value="currentTheme.colors.text"
+              @update:model-value="updateThemeColor('text', $event)"
+              label="Text Color"
+              position="right"
+            />
+            <ColorPicker
+              :model-value="currentTheme.colors.input.background"
+              @update:model-value="updateThemeColor('input.background', $event)"
+              label="Input Background"
+              position="right"
+            />
+            <ColorPicker
+              :model-value="currentTheme.colors.input.text"
+              @update:model-value="updateThemeColor('input.text', $event)"
+              label="Input Text"
+              position="right"
+            />
           </div>
         </div>
 
@@ -127,41 +113,37 @@
                 <option value="solid">Solid Color</option>
               </select>
             </div>
-            <div>
-              <label class="theme-text text-xs block mb-1 theme-font">
-                {{ currentTheme.background.type === 'image' ? 'Image URL' : currentTheme.background.type === 'gradient' ? 'Gradient CSS' : 'Color' }}
-              </label>
+            
+            <!-- Image URL Input -->
+            <div v-if="currentTheme.background.type === 'image'">
+              <label class="theme-text text-xs block mb-1 theme-font">Image URL</label>
               <input
                 type="text"
                 :value="currentTheme.background.value"
                 @input="updateThemeProperty('background', { ...currentTheme.background, value: ($event.target as HTMLInputElement).value })"
-                :placeholder="currentTheme.background.type === 'image' ? 'https://...' : currentTheme.background.type === 'gradient' ? 'linear-gradient(...)' : '#ffffff'"
+                placeholder="https://..."
                 class="w-full theme-input rounded-xl px-3 py-2 text-xs theme-font"
               />
             </div>
+            
+            <!-- Gradient Maker -->
+            <div v-else-if="currentTheme.background.type === 'gradient'">
+              <GradientMaker
+                :model-value="currentTheme.background.value"
+                @update:model-value="updateThemeProperty('background', { ...currentTheme.background, value: $event })"
+              />
+            </div>
+            
+            <!-- Solid Color Picker -->
+            <div v-else-if="currentTheme.background.type === 'solid'">
+              <ColorPicker
+                :model-value="currentTheme.background.value"
+                @update:model-value="updateThemeProperty('background', { ...currentTheme.background, value: $event })"
+                label="Background Color"
+                position="right"
+              />
+            </div>
           </div>
-        </div>
-
-        <!-- Legacy Background Cycling -->
-        <div>
-          <label class="theme-text text-sm font-medium block mb-2 theme-font">Quick Backgrounds</label>
-          <button
-            @click="cycleBackground"
-            class="w-full theme-button rounded-xl px-4 py-3 text-sm theme-transition flex items-center justify-center gap-2 theme-font"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"
-              ></path>
-            </svg>
-            Change Background
-          </button>
-          <p class="theme-text-secondary text-xs mt-1 theme-font">
-            Current: {{ backgroundImages[currentBackgroundIndex].name }}
-          </p>
         </div>
 
         <!-- Import/Export Theme -->
@@ -207,11 +189,21 @@
         class="theme-glass rounded-3xl p-6 shadow-inner theme-transition hover:shadow-2xl hover:scale-[1.02]"
       >
         <h2 class="theme-text text-2xl font-normal text-left mb-6 theme-font">Business Description or Idea</h2>
-        <div class="theme-glass p-6 min-h-[165px] theme-transition hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg rounded-xl">
+        <div 
+          class="p-6 min-h-[165px] theme-transition hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg rounded-xl border"
+          :style="{ 
+            backgroundColor: currentTheme?.colors.input.background || 'rgba(59, 130, 246, 0.2)',
+            borderColor: currentTheme?.colors.input.border || 'rgba(255, 255, 255, 0.3)',
+            backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
+          }"
+        >
           <textarea
             v-model="businessDescription"
             placeholder="Describe your business or idea here"
-            class="w-full h-full bg-transparent theme-text placeholder-gray-300 text-sm resize-none outline-none theme-transition theme-font"
+            class="w-full h-full bg-transparent text-sm resize-none outline-none theme-transition theme-font"
+            :style="{ 
+              color: currentTheme?.colors.input.text || '#ffffff'
+            }"
             rows="6"
           ></textarea>
         </div>
@@ -231,15 +223,19 @@
             :key="mood.value"
             @click="selectedMood = mood.value"
             :class="[
-              'p-4 flex flex-col items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95',
+              'p-4 flex flex-col items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95 rounded-xl border',
               selectedMood === mood.value
                 ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                 : '',
             ]"
-            class="theme-glass rounded-xl"
+            :style="{ 
+              backgroundColor: currentTheme?.colors.input.background || 'rgba(59, 130, 246, 0.2)',
+              borderColor: currentTheme?.colors.input.border || 'rgba(255, 255, 255, 0.3)',
+              backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
+            }"
           >
             <div class="text-4xl">{{ mood.emoji }}</div>
-            <div class="theme-text text-2xl font-normal theme-font">{{ mood.value }}</div>
+            <div class="text-2xl font-normal theme-font" :style="{ color: currentTheme?.colors.input.text || '#ffffff' }">{{ mood.value }}</div>
           </div>
         </div>
       </div>
@@ -261,15 +257,19 @@
               :key="interest.name"
               @click="toggleInterest(interest.name)"
               :class="[
-                'p-4 flex items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95',
+                'p-4 flex items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95 rounded-xl border',
                 selectedInterests.includes(interest.name)
                   ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                   : '',
               ]"
-              class="theme-glass rounded-xl"
+              :style="{ 
+                backgroundColor: currentTheme?.colors.input.background || 'rgba(59, 130, 246, 0.2)',
+                borderColor: currentTheme?.colors.input.border || 'rgba(255, 255, 255, 0.3)',
+                backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
+              }"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="theme-text text-xs font-normal text-left flex-1 theme-font">{{ interest.name }}</div>
+              <div class="text-xs font-normal text-left flex-1 theme-font" :style="{ color: currentTheme?.colors.input.text || '#ffffff' }">{{ interest.name }}</div>
             </div>
           </div>
           <div class="space-y-3">
@@ -278,15 +278,19 @@
               :key="interest.name"
               @click="toggleInterest(interest.name)"
               :class="[
-                'p-4 flex items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95',
+                'p-4 flex items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95 rounded-xl border',
                 selectedInterests.includes(interest.name)
                   ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                   : '',
               ]"
-              class="theme-glass rounded-xl"
+              :style="{ 
+                backgroundColor: currentTheme?.colors.input.background || 'rgba(59, 130, 246, 0.2)',
+                borderColor: currentTheme?.colors.input.border || 'rgba(255, 255, 255, 0.3)',
+                backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
+              }"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="theme-text text-xs font-normal text-left flex-1 theme-font">{{ interest.name }}</div>
+              <div class="text-xs font-normal text-left flex-1 theme-font" :style="{ color: currentTheme?.colors.input.text || '#ffffff' }">{{ interest.name }}</div>
             </div>
           </div>
         </div>
@@ -313,6 +317,9 @@
 import { ref, computed, onMounted } from 'vue'
 import { useTheme } from '@/composables/useTheme'
 import { themeApi } from '@/services/themeApi'
+import GoogleFontSearch from '@/components/GoogleFontSearch.vue'
+import ColorPicker from '@/components/ColorPicker.vue'
+import GradientMaker from '@/components/GradientMaker.vue'
 
 interface Mood {
   emoji: string
@@ -324,17 +331,10 @@ interface Interest {
   name: string
 }
 
-interface BackgroundImage {
-  url: string
-  name: string
-}
-
 const businessDescription = ref('')
 const selectedMood = ref<number | null>(null)
 const selectedInterests = ref<string[]>([])
 const showSettings = ref(false)
-const currentBackgroundIndex = ref(1)
-const showThemeSettings = ref(false)
 
 // Theme system
 const {
@@ -352,54 +352,12 @@ const {
   setAvailablePresets
 } = useTheme()
 
-const backgroundImages: BackgroundImage[] = [
-  { url: '', name: 'Default Gradient' },
-  {
-    url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
-    name: 'Mountain Lake',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop',
-    name: 'Forest Path',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1501436513145-30f24e19fcc4?w=1920&h=1080&fit=crop',
-    name: 'Ocean Sunset',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&h=1080&fit=crop',
-    name: 'Desert Canyon',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&h=1080&fit=crop',
-    name: 'Aurora Borealis',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
-    name: 'Starry Night',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&h=1080&fit=crop',
-    name: 'City Lights',
-  },
-]
-
-// Legacy background style (now handled by theme system)
 const backgroundStyle = computed(() => {
-  // Use theme background if available, otherwise fallback to legacy
+  // Use theme background if available
   if (currentTheme.value) {
     return themeBackgroundStyle.value
   }
-
-  const currentBg = backgroundImages[currentBackgroundIndex.value]
-  if (currentBg.url) {
-    return {
-      backgroundImage: `url('${currentBg.url}')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }
-  }
+  
   return {
     background: 'linear-gradient(to bottom right, rgb(241 245 249), rgb(226 232 240))',
   }
@@ -442,10 +400,6 @@ function toggleSettings() {
   showSettings.value = !showSettings.value
 }
 
-function cycleBackground() {
-  currentBackgroundIndex.value = (currentBackgroundIndex.value + 1) % backgroundImages.length
-}
-
 function handleContinue() {
   console.log('Form data:', {
     businessDescription: businessDescription.value,
@@ -456,10 +410,6 @@ function handleContinue() {
 }
 
 // Theme management functions
-function toggleThemeSettings() {
-  showThemeSettings.value = !showThemeSettings.value
-}
-
 function selectThemePreset(presetId: string) {
   const preset = availablePresets.value.find(p => p.id === presetId)
   if (preset) {
