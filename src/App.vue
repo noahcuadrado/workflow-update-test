@@ -71,9 +71,9 @@
           <label class="theme-text text-sm font-medium block mb-3 theme-font">Colors</label>
           <div class="space-y-3">
             <ColorPicker
-              :model-value="currentTheme.colors.primary"
-              @update:model-value="updateThemeColor('primary', $event)"
-              label="Primary"
+              :model-value="currentTheme.colors.section"
+              @update:model-value="updateThemeColor('section', $event)"
+              label="Section"
               position="right"
             />
             <ColorPicker
