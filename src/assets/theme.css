@@ -85,7 +85,7 @@
 
 /* Theme-aware hover effects */
 .theme-hover:hover {
-  background-color: rgba(var(--theme-color-primary), 0.1);
+  background-color: rgba(var(--theme-color-section), 0.1);
   transform: scale(1.02);
 }
 
