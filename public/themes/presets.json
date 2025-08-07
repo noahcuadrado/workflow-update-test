@@ -1,0 +1,251 @@
+[
+  {
+    "id": "default",
+    "name": "Default Theme",
+    "description": "Default blue theme with glassmorphism",
+    "config": {
+      "id": "default",
+      "name": "Default Theme",
+      "description": "Default blue theme with glassmorphism",
+      "font": {
+        "family": "Inter",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#3b82f6",
+        "secondary": "#64748b",
+        "accent": "#06b6d4",
+        "text": "#ffffff",
+        "textSecondary": "#e2e8f0",
+        "background": "#0f172a",
+        "surface": "rgba(255, 255, 255, 0.1)",
+        "border": "rgba(255, 255, 255, 0.2)",
+        "input": {
+          "background": "rgba(59, 130, 246, 0.2)",
+          "border": "rgba(255, 255, 255, 0.3)",
+          "text": "#ffffff",
+          "placeholder": "#d1d5db",
+          "focus": "#3b82f6"
+        }
+      },
+      "background": {
+        "type": "image",
+        "value": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop",
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat"
+      },
+      "glassmorphism": {
+        "blur": 12,
+        "opacity": 0.1,
+        "border": {
+          "width": 1,
+          "opacity": 0.2
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 300
+      }
+    }
+  },
+  {
+    "id": "dark-purple",
+    "name": "Dark Purple",
+    "description": "Elegant dark theme with purple accents",
+    "config": {
+      "id": "dark-purple",
+      "name": "Dark Purple",
+      "description": "Elegant dark theme with purple accents",
+      "font": {
+        "family": "Poppins",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#8b5cf6",
+        "secondary": "#6366f1",
+        "accent": "#a855f7",
+        "text": "#ffffff",
+        "textSecondary": "#e2e8f0",
+        "background": "#1e1b4b",
+        "surface": "rgba(139, 92, 246, 0.1)",
+        "border": "rgba(139, 92, 246, 0.3)",
+        "input": {
+          "background": "rgba(139, 92, 246, 0.2)",
+          "border": "rgba(139, 92, 246, 0.4)",
+          "text": "#ffffff",
+          "placeholder": "#c4b5fd",
+          "focus": "#8b5cf6"
+        }
+      },
+      "background": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      },
+      "glassmorphism": {
+        "blur": 16,
+        "opacity": 0.15,
+        "border": {
+          "width": 1,
+          "opacity": 0.3
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 400
+      }
+    }
+  },
+  {
+    "id": "forest-green",
+    "name": "Forest Green",
+    "description": "Natural green theme with forest background",
+    "config": {
+      "id": "forest-green",
+      "name": "Forest Green",
+      "description": "Natural green theme with forest background",
+      "font": {
+        "family": "Nunito",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#059669",
+        "secondary": "#10b981",
+        "accent": "#34d399",
+        "text": "#ffffff",
+        "textSecondary": "#d1fae5",
+        "background": "#064e3b",
+        "surface": "rgba(5, 150, 105, 0.1)",
+        "border": "rgba(5, 150, 105, 0.3)",
+        "input": {
+          "background": "rgba(5, 150, 105, 0.2)",
+          "border": "rgba(5, 150, 105, 0.4)",
+          "text": "#ffffff",
+          "placeholder": "#a7f3d0",
+          "focus": "#059669"
+        }
+      },
+      "background": {
+        "type": "image",
+        "value": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop",
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat"
+      },
+      "glassmorphism": {
+        "blur": 10,
+        "opacity": 0.12,
+        "border": {
+          "width": 1,
+          "opacity": 0.25
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 350
+      }
+    }
+  },
+  {
+    "id": "ocean-sunset",
+    "name": "Ocean Sunset",
+    "description": "Warm sunset colors with ocean backdrop",
+    "config": {
+      "id": "ocean-sunset",
+      "name": "Ocean Sunset",
+      "description": "Warm sunset colors with ocean backdrop",
+      "font": {
+        "family": "Roboto",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#f97316",
+        "secondary": "#ea580c",
+        "accent": "#fb923c",
+        "text": "#ffffff",
+        "textSecondary": "#fed7aa",
+        "background": "#9a3412",
+        "surface": "rgba(249, 115, 22, 0.1)",
+        "border": "rgba(249, 115, 22, 0.3)",
+        "input": {
+          "background": "rgba(249, 115, 22, 0.2)",
+          "border": "rgba(249, 115, 22, 0.4)",
+          "text": "#ffffff",
+          "placeholder": "#fed7aa",
+          "focus": "#f97316"
+        }
+      },
+      "background": {
+        "type": "image",
+        "value": "https://images.unsplash.com/photo-1501436513145-30f24e19fcc4?w=1920&h=1080&fit=crop",
+        "position": "center",
+        "size": "cover",
+        "repeat": "no-repeat"
+      },
+      "glassmorphism": {
+        "blur": 14,
+        "opacity": 0.12,
+        "border": {
+          "width": 1,
+          "opacity": 0.25
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 320
+      }
+    }
+  },
+  {
+    "id": "minimalist-white",
+    "name": "Minimalist White",
+    "description": "Clean white theme with subtle accents",
+    "config": {
+      "id": "minimalist-white",
+      "name": "Minimalist White",
+      "description": "Clean white theme with subtle accents",
+      "font": {
+        "family": "Source Sans Pro",
+        "weights": [300, 400, 500, 600, 700],
+        "fallback": ["system-ui", "sans-serif"]
+      },
+      "colors": {
+        "primary": "#6366f1",
+        "secondary": "#8b5cf6",
+        "accent": "#06b6d4",
+        "text": "#1f2937",
+        "textSecondary": "#6b7280",
+        "background": "#f9fafb",
+        "surface": "rgba(255, 255, 255, 0.8)",
+        "border": "rgba(0, 0, 0, 0.1)",
+        "input": {
+          "background": "rgba(255, 255, 255, 0.9)",
+          "border": "rgba(0, 0, 0, 0.2)",
+          "text": "#1f2937",
+          "placeholder": "#9ca3af",
+          "focus": "#6366f1"
+        }
+      },
+      "background": {
+        "type": "gradient",
+        "value": "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)"
+      },
+      "glassmorphism": {
+        "blur": 8,
+        "opacity": 0.8,
+        "border": {
+          "width": 1,
+          "opacity": 0.1
+        }
+      },
+      "animations": {
+        "enabled": true,
+        "duration": 250
+      }
+    }
+  }
+]
