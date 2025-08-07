@@ -194,47 +194,85 @@ class ThemeApiService implements ThemeAPI {
       throw new Error('Theme must be a valid object')
     }
 
-    const requiredProps = ['id', 'name', 'font', 'colors', 'background']
-    const missingProps: string[] = []
+    // More flexible validation - only check critical properties
+    const criticalProps = ['id', 'name', 'colors']
+    const missingCritical: string[] = []
 
-    for (const prop of requiredProps) {
+    for (const prop of criticalProps) {
       if (!theme[prop]) {
-        missingProps.push(prop)
+        missingCritical.push(prop)
       }
     }
 
-    if (missingProps.length > 0) {
-      throw new Error(`Missing required properties: ${missingProps.join(', ')}`)
+    if (missingCritical.length > 0) {
+      throw new Error(`Missing critical properties: ${missingCritical.join(', ')}`)
     }
 
-    // Validate font structure
+    // Validate and fix font structure
     if (!theme.font || typeof theme.font !== 'object') {
-      throw new Error('Font configuration must be an object')
+      console.log('Adding missing font configuration')
+      theme.font = {
+        family: 'Inter',
+        weights: [300, 400, 500, 600, 700],
+        fallback: ['system-ui', 'sans-serif']
+      }
     }
-    if (!theme.font.family || typeof theme.font.family !== 'string') {
-      throw new Error('Font family is required and must be a string')
+    if (!theme.font.family) {
+      theme.font.family = 'Inter'
+    }
+    if (!theme.font.fallback) {
+      theme.font.fallback = ['system-ui', 'sans-serif']
     }
 
-    // Validate colors structure
+    // Validate and fix colors structure
     if (!theme.colors || typeof theme.colors !== 'object') {
       throw new Error('Colors configuration must be an object')
     }
-    if (!theme.colors.section || !theme.colors.text) {
-      throw new Error('Invalid colors configuration: missing section or text colors')
+
+    // Handle migration from old 'primary' to new 'section' color
+    if (theme.colors.primary && !theme.colors.section) {
+      console.log('Migrating primary color to section color')
+      theme.colors.section = theme.colors.primary
+      delete theme.colors.primary
+    }
+
+    // Ensure required colors exist with defaults
+    if (!theme.colors.section) {
+      theme.colors.section = 'rgba(59, 130, 246, 0.15)'
+    }
+    if (!theme.colors.text) {
+      theme.colors.text = '#ffffff'
     }
     if (!theme.colors.input || typeof theme.colors.input !== 'object') {
-      throw new Error('Invalid colors configuration: input colors must be an object')
+      theme.colors.input = {
+        background: 'rgba(59, 130, 246, 0.2)',
+        border: 'rgba(255, 255, 255, 0.3)',
+        text: '#ffffff',
+        placeholder: '#d1d5db',
+        focus: '#3b82f6'
+      }
     }
 
-    // Validate background structure
+    // Add missing color properties with defaults
+    if (!theme.colors.textSecondary) theme.colors.textSecondary = '#e2e8f0'
+    if (!theme.colors.background) theme.colors.background = '#0f172a'
+    if (!theme.colors.surface) theme.colors.surface = 'rgba(255, 255, 255, 0.1)'
+    if (!theme.colors.border) theme.colors.border = 'rgba(255, 255, 255, 0.2)'
+
+    // Validate and fix background structure
     if (!theme.background || typeof theme.background !== 'object') {
-      throw new Error('Background configuration must be an object')
+      console.log('Adding missing background configuration')
+      theme.background = {
+        type: 'image',
+        value: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop'
+      }
     }
-    if (!theme.background.type || !theme.background.value) {
-      throw new Error('Invalid background configuration: missing type or value')
+    if (!theme.background.type) theme.background.type = 'image'
+    if (!theme.background.value) {
+      theme.background.value = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop'
     }
 
-    console.log('Theme validation passed')
+    console.log('Theme validation and migration completed')
   }
 
   private getDefaultPresets(): ThemePreset[] {
