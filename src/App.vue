@@ -190,7 +190,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useTheme } from '@/composables/useTheme'
+import { themeApi } from '@/services/themeApi'
 
 interface Mood {
   emoji: string
@@ -212,6 +214,23 @@ const selectedMood = ref<number | null>(null)
 const selectedInterests = ref<string[]>([])
 const showSettings = ref(false)
 const currentBackgroundIndex = ref(1)
+const showThemeSettings = ref(false)
+
+// Theme system
+const {
+  currentTheme,
+  availablePresets,
+  isLoading: themeLoading,
+  backgroundStyle: themeBackgroundStyle,
+  fontStyle,
+  loadTheme,
+  setTheme,
+  updateThemeProperty,
+  updateThemeColor,
+  exportTheme,
+  importTheme,
+  setAvailablePresets
+} = useTheme()
 
 const backgroundImages: BackgroundImage[] = [
   { url: '', name: 'Default Gradient' },
@@ -245,7 +264,13 @@ const backgroundImages: BackgroundImage[] = [
   },
 ]
 
+// Legacy background style (now handled by theme system)
 const backgroundStyle = computed(() => {
+  // Use theme background if available, otherwise fallback to legacy
+  if (currentTheme.value) {
+    return themeBackgroundStyle.value
+  }
+
   const currentBg = backgroundImages[currentBackgroundIndex.value]
   if (currentBg.url) {
     return {
@@ -309,6 +334,54 @@ function handleContinue() {
   })
   // Handle form submission logic here
 }
+
+// Theme management functions
+function toggleThemeSettings() {
+  showThemeSettings.value = !showThemeSettings.value
+}
+
+function selectThemePreset(presetId: string) {
+  const preset = availablePresets.value.find(p => p.id === presetId)
+  if (preset) {
+    setTheme(preset.config)
+  }
+}
+
+function downloadCurrentTheme() {
+  if (currentTheme.value) {
+    themeApi.downloadTheme(currentTheme.value)
+  }
+}
+
+function handleThemeFileUpload(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (file) {
+    themeApi.loadThemeFromFile(file)
+      .then(theme => {
+        setTheme(theme)
+        target.value = '' // Reset file input
+      })
+      .catch(error => {
+        console.error('Failed to load theme:', error)
+        alert('Failed to load theme file. Please check the file format.')
+      })
+  }
+}
+
+// Initialize theme system
+onMounted(async () => {
+  try {
+    // Load available presets
+    const presets = await themeApi.listPresets()
+    setAvailablePresets(presets)
+
+    // Load theme (from localStorage or default)
+    await loadTheme()
+  } catch (error) {
+    console.error('Failed to initialize theme system:', error)
+  }
+})
 </script>
 
 <style scoped>
