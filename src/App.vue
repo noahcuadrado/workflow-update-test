@@ -62,7 +62,7 @@
         <div v-if="currentTheme">
           <GoogleFontSearch
             :model-value="currentTheme.font.family"
-            @update:model-value="updateThemeProperty('font', { ...currentTheme.font, family: $event })"
+            @update:model-value="updateThemePropertyWithCustom('font', { ...currentTheme.font, family: $event })"
           />
         </div>
 
@@ -399,7 +399,7 @@ const leftColumnInterests: Interest[] = [
 const rightColumnInterests: Interest[] = [
   { emoji: '📚', name: 'Reading Habits' },
   { emoji: '🎭', name: 'Creative Arts' },
-  { emoji: '🌱', name: 'Sustainable Living' },
+  { emoji: '����', name: 'Sustainable Living' },
   { emoji: '🏡', name: 'Home Gardening' },
 ]
 
