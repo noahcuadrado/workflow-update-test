@@ -138,7 +138,7 @@
             <div v-else-if="currentTheme.background.type === 'solid'">
               <ColorPicker
                 :model-value="currentTheme.background.value"
-                @update:model-value="updateThemeProperty('background', { ...currentTheme.background, value: $event })"
+                @update:model-value="updateThemePropertyWithCustom('background', { ...currentTheme.background, value: $event })"
                 label="Background Color"
                 position="right"
               />
