@@ -83,7 +83,7 @@ export function useTheme() {
 
     // Apply CSS custom properties
     root.style.setProperty('--theme-font-family', `${theme.font.family}, ${theme.font.fallback.join(', ')}`)
-    root.style.setProperty('--theme-color-primary', theme.colors.primary)
+    root.style.setProperty('--theme-color-section', theme.colors.section)
     root.style.setProperty('--theme-color-secondary', theme.colors.secondary)
     root.style.setProperty('--theme-color-accent', theme.colors.accent)
     root.style.setProperty('--theme-color-text', theme.colors.text)
