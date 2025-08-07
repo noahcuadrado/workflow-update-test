@@ -136,7 +136,7 @@ class ThemeApiService implements ThemeAPI {
       if (error instanceof SyntaxError) {
         throw new Error(`Invalid JSON format: ${error.message}`)
       } else {
-        throw new Error(`Theme validation failed: ${error.message}`)
+        throw new Error(`Theme validation failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
       }
     }
   }
