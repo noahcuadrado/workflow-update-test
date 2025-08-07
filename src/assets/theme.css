@@ -2,7 +2,7 @@
 :root {
   /* Default theme variables - will be overridden by JS */
   --theme-font-family: 'Inter', system-ui, sans-serif;
-  --theme-color-primary: #3b82f6;
+  --theme-color-section: rgba(59, 130, 246, 0.15);
   --theme-color-secondary: #64748b;
   --theme-color-accent: #06b6d4;
   --theme-color-text: #ffffff;
