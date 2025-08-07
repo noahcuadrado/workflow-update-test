@@ -558,9 +558,22 @@ onMounted(async () => {
     // Load available presets
     const presets = await themeApi.listPresets()
     setAvailablePresets(presets)
-    
+
+    // Store original preset states for comparison
+    presets.forEach(preset => {
+      originalPresetThemes.value.set(preset.id, JSON.stringify(preset.config))
+    })
+
     // Load theme (from localStorage or default)
     await loadTheme()
+
+    // If we loaded a preset, store its original state
+    if (currentTheme.value && currentTheme.value.id !== 'custom') {
+      const preset = presets.find(p => p.id === currentTheme.value?.id)
+      if (preset) {
+        originalPresetThemes.value.set(preset.id, JSON.stringify(preset.config))
+      }
+    }
   } catch (error) {
     console.error('Failed to initialize theme system:', error)
   }
