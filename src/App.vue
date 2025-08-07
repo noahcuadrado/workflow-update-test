@@ -430,6 +430,101 @@ function selectThemePreset(presetId: string) {
   const preset = availablePresets.value.find(p => p.id === presetId)
   if (preset) {
     setTheme(preset.config)
+    // Store the original preset state for comparison
+    originalPresetThemes.value.set(preset.id, JSON.stringify(preset.config))
+  }
+}
+
+function createCustomPresetIfNeeded(updatedTheme: any) {
+  if (!currentTheme.value) return updatedTheme
+
+  // Check if current theme is a preset (not already custom)
+  const isPreset = availablePresets.value.some(p => p.id === currentTheme.value?.id)
+
+  if (isPreset && currentTheme.value.id !== 'custom') {
+    // Get the original preset state
+    const originalState = originalPresetThemes.value.get(currentTheme.value.id)
+    const currentState = JSON.stringify(updatedTheme)
+
+    // If theme has been modified from original
+    if (originalState && originalState !== currentState) {
+      console.log('Theme modified, creating custom preset')
+
+      // Create custom preset
+      const customTheme = {
+        ...updatedTheme,
+        id: 'custom',
+        name: 'Custom Preset',
+        description: `Based on ${currentTheme.value.name}`
+      }
+
+      // Add custom preset to available presets if not already there
+      const existingCustomIndex = availablePresets.value.findIndex(p => p.id === 'custom')
+      const customPreset = {
+        id: 'custom',
+        name: 'Custom Preset',
+        description: `Based on ${currentTheme.value.name}`,
+        config: customTheme
+      }
+
+      if (existingCustomIndex >= 0) {
+        // Update existing custom preset
+        availablePresets.value[existingCustomIndex] = customPreset
+      } else {
+        // Add new custom preset
+        availablePresets.value.push(customPreset)
+      }
+
+      // Save to local storage
+      themeApi.saveTheme(customTheme)
+
+      return customTheme
+    }
+  }
+
+  return updatedTheme
+}
+
+function updateThemePropertyWithCustom(property: string, value: any) {
+  if (currentTheme.value) {
+    const updatedTheme = {
+      ...currentTheme.value,
+      [property]: value
+    }
+
+    const finalTheme = createCustomPresetIfNeeded(updatedTheme)
+    updateThemeProperty(property, value)
+
+    // If we created a custom theme, switch to it
+    if (finalTheme.id === 'custom' && currentTheme.value.id !== 'custom') {
+      setTimeout(() => {
+        setTheme(finalTheme)
+      }, 100)
+    }
+  }
+}
+
+function updateThemeColorWithCustom(colorPath: string, value: string) {
+  if (currentTheme.value) {
+    // Create a deep copy and update the color
+    const updatedTheme = JSON.parse(JSON.stringify(currentTheme.value))
+    const pathArray = colorPath.split('.')
+    let target: any = updatedTheme.colors
+
+    for (let i = 0; i < pathArray.length - 1; i++) {
+      target = target[pathArray[i]]
+    }
+    target[pathArray[pathArray.length - 1]] = value
+
+    const finalTheme = createCustomPresetIfNeeded(updatedTheme)
+    updateThemeColor(colorPath, value)
+
+    // If we created a custom theme, switch to it
+    if (finalTheme.id === 'custom' && currentTheme.value.id !== 'custom') {
+      setTimeout(() => {
+        setTheme(finalTheme)
+      }, 100)
+    }
   }
 }
 
