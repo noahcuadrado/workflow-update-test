@@ -150,8 +150,32 @@ class ThemeApiService implements ThemeAPI {
   }
 
   private validateThemeConfig(theme: any): void {
-    if (!theme.id || !theme.name || !theme.font || !theme.colors || !theme.background) {
-      throw new Error('Invalid theme configuration: missing required properties')
+    const requiredProps = ['id', 'name', 'font', 'colors', 'background']
+    const missingProps: string[] = []
+
+    for (const prop of requiredProps) {
+      if (!theme[prop]) {
+        missingProps.push(prop)
+      }
+    }
+
+    if (missingProps.length > 0) {
+      throw new Error(`Missing required properties: ${missingProps.join(', ')}`)
+    }
+
+    // Validate font structure
+    if (!theme.font.family) {
+      throw new Error('Font family is required')
+    }
+
+    // Validate colors structure
+    if (!theme.colors.primary || !theme.colors.text || !theme.colors.input) {
+      throw new Error('Invalid colors configuration: missing primary, text, or input colors')
+    }
+
+    // Validate background structure
+    if (!theme.background.type || !theme.background.value) {
+      throw new Error('Invalid background configuration: missing type or value')
     }
   }
 
