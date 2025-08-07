@@ -130,7 +130,7 @@
             <div v-else-if="currentTheme.background.type === 'gradient'">
               <GradientMaker
                 :model-value="currentTheme.background.value"
-                @update:model-value="updateThemeProperty('background', { ...currentTheme.background, value: $event })"
+                @update:model-value="updateThemePropertyWithCustom('background', { ...currentTheme.background, value: $event })"
               />
             </div>
             
