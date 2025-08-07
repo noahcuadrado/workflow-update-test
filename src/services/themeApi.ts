@@ -150,6 +150,12 @@ class ThemeApiService implements ThemeAPI {
   }
 
   private validateThemeConfig(theme: any): void {
+    console.log('Validating theme config:', theme)
+
+    if (!theme || typeof theme !== 'object') {
+      throw new Error('Theme must be a valid object')
+    }
+
     const requiredProps = ['id', 'name', 'font', 'colors', 'background']
     const missingProps: string[] = []
 
@@ -164,19 +170,33 @@ class ThemeApiService implements ThemeAPI {
     }
 
     // Validate font structure
-    if (!theme.font.family) {
-      throw new Error('Font family is required')
+    if (!theme.font || typeof theme.font !== 'object') {
+      throw new Error('Font configuration must be an object')
+    }
+    if (!theme.font.family || typeof theme.font.family !== 'string') {
+      throw new Error('Font family is required and must be a string')
     }
 
     // Validate colors structure
-    if (!theme.colors.primary || !theme.colors.text || !theme.colors.input) {
-      throw new Error('Invalid colors configuration: missing primary, text, or input colors')
+    if (!theme.colors || typeof theme.colors !== 'object') {
+      throw new Error('Colors configuration must be an object')
+    }
+    if (!theme.colors.primary || !theme.colors.text) {
+      throw new Error('Invalid colors configuration: missing primary or text colors')
+    }
+    if (!theme.colors.input || typeof theme.colors.input !== 'object') {
+      throw new Error('Invalid colors configuration: input colors must be an object')
     }
 
     // Validate background structure
+    if (!theme.background || typeof theme.background !== 'object') {
+      throw new Error('Background configuration must be an object')
+    }
     if (!theme.background.type || !theme.background.value) {
       throw new Error('Invalid background configuration: missing type or value')
     }
+
+    console.log('Theme validation passed')
   }
 
   private getDefaultPresets(): ThemePreset[] {
