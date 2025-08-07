@@ -97,8 +97,8 @@
 }
 
 .theme-button:hover {
-  background-color: rgba(var(--theme-color-primary), 0.3);
-  border-color: var(--theme-color-primary);
+  background-color: rgba(var(--theme-color-section), 0.3);
+  border-color: var(--theme-color-section);
 }
 
 .theme-button:focus {
