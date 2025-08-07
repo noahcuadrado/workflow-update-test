@@ -337,6 +337,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useTheme } from '@/composables/useTheme'
 import { themeApi } from '@/services/themeApi'
+import type { ThemeConfig } from '@/types/theme'
 import GoogleFontSearch from '@/components/GoogleFontSearch.vue'
 import ColorPicker from '@/components/ColorPicker.vue'
 import GradientMaker from '@/components/GradientMaker.vue'
