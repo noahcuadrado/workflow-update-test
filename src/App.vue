@@ -72,25 +72,25 @@
           <div class="space-y-3">
             <ColorPicker
               :model-value="currentTheme.colors.section"
-              @update:model-value="updateThemeColor('section', $event)"
+              @update:model-value="updateThemeColorWithCustom('section', $event)"
               label="Section Background"
               position="right"
             />
             <ColorPicker
               :model-value="currentTheme.colors.text"
-              @update:model-value="updateThemeColor('text', $event)"
+              @update:model-value="updateThemeColorWithCustom('text', $event)"
               label="Text Color"
               position="right"
             />
             <ColorPicker
               :model-value="currentTheme.colors.input.background"
-              @update:model-value="updateThemeColor('input.background', $event)"
+              @update:model-value="updateThemeColorWithCustom('input.background', $event)"
               label="Input Background Color"
               position="right"
             />
             <ColorPicker
               :model-value="currentTheme.colors.input.text"
-              @update:model-value="updateThemeColor('input.text', $event)"
+              @update:model-value="updateThemeColorWithCustom('input.text', $event)"
               label="Input Text"
               position="right"
             />
@@ -399,7 +399,7 @@ const leftColumnInterests: Interest[] = [
 const rightColumnInterests: Interest[] = [
   { emoji: '📚', name: 'Reading Habits' },
   { emoji: '🎭', name: 'Creative Arts' },
-  { emoji: '����', name: 'Sustainable Living' },
+  { emoji: '🌱', name: 'Sustainable Living' },
   { emoji: '🏡', name: 'Home Gardening' },
 ]
 
