@@ -120,7 +120,7 @@
               <input
                 type="text"
                 :value="currentTheme.background.value"
-                @input="updateThemeProperty('background', { ...currentTheme.background, value: ($event.target as HTMLInputElement).value })"
+                @input="updateThemePropertyWithCustom('background', { ...currentTheme.background, value: ($event.target as HTMLInputElement).value })"
                 placeholder="https://..."
                 class="w-full theme-input rounded-xl px-3 py-2 text-xs theme-font"
               />
