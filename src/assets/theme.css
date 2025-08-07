@@ -41,8 +41,8 @@
   color: var(--theme-color-text-secondary);
 }
 
-.theme-bg-primary {
-  background-color: var(--theme-color-primary);
+.theme-bg-section {
+  background-color: var(--theme-color-section);
 }
 
 .theme-bg-secondary {
