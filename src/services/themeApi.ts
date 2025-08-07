@@ -410,7 +410,7 @@ class ThemeApiService implements ThemeAPI {
           resolve(theme)
         } catch (error) {
           console.error('Error loading theme from file:', error)
-          reject(new Error(`Failed to load theme: ${error.message}`))
+          reject(new Error(`Failed to load theme: ${error instanceof Error ? error.message : 'Unknown error'}`))
         }
       }
       reader.onerror = () => reject(new Error('Failed to read file'))
