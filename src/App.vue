@@ -48,7 +48,12 @@
               ]"
             >
               <div class="text-left">
-                <div class="font-medium">{{ preset.name }}</div>
+                <div class="font-medium flex items-center gap-2">
+                  {{ preset.name }}
+                  <span v-if="preset.id === 'custom'" class="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full">
+                    Custom
+                  </span>
+                </div>
                 <div class="text-xs opacity-70">{{ preset.description }}</div>
               </div>
               <div v-if="currentTheme?.id === preset.id" class="text-blue-300">
