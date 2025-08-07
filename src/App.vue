@@ -431,10 +431,12 @@ function handleThemeFileUpload(event: Event) {
       .then(theme => {
         setTheme(theme)
         target.value = '' // Reset file input
+        console.log('Theme loaded successfully:', theme.name)
       })
       .catch(error => {
         console.error('Failed to load theme:', error)
-        alert('Failed to load theme file. Please check the file format.')
+        const errorMessage = error.message || 'Unknown error occurred'
+        alert(`Failed to load theme file:\n\n${errorMessage}\n\nPlease check that the file is a valid theme JSON file.`)
       })
   }
 }
