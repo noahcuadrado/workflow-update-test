@@ -73,7 +73,7 @@
             <ColorPicker
               :model-value="currentTheme.colors.section"
               @update:model-value="updateThemeColor('section', $event)"
-              label="Section"
+              label="Section Background"
               position="right"
             />
             <ColorPicker
