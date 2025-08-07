@@ -134,17 +134,17 @@ const searchResults = ref<GoogleFont[]>([])
 const allFonts = ref<GoogleFont[]>([])
 
 // Popular fonts that are commonly used
-const popularFonts = ref([
-  { family: 'Inter', category: 'sans-serif' },
-  { family: 'Roboto', category: 'sans-serif' },
-  { family: 'Open Sans', category: 'sans-serif' },
-  { family: 'Lato', category: 'sans-serif' },
-  { family: 'Source Sans Pro', category: 'sans-serif' },
-  { family: 'Montserrat', category: 'sans-serif' },
-  { family: 'Poppins', category: 'sans-serif' },
-  { family: 'Nunito', category: 'sans-serif' },
-  { family: 'Playfair Display', category: 'serif' },
-  { family: 'Merriweather', category: 'serif' },
+const popularFonts = ref<GoogleFont[]>([
+  { family: 'Inter', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Roboto', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Open Sans', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Lato', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Source Sans Pro', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Montserrat', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Poppins', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Nunito', category: 'sans-serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Playfair Display', category: 'serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
+  { family: 'Merriweather', category: 'serif', variants: ['400'], subsets: ['latin'], version: 'v1', lastModified: '', files: {} },
 ])
 
 const debounceTimeout = ref<number | null>(null)
