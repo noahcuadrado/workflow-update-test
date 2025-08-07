@@ -197,8 +197,8 @@
         <div
           class="p-6 min-h-[165px] theme-transition hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg rounded-xl border"
           :style="{
-            backgroundColor: currentTheme?.colors.section || 'rgba(59, 130, 246, 0.15)',
-            borderColor: currentTheme?.colors.border || 'rgba(255, 255, 255, 0.3)',
+            backgroundColor: currentTheme?.colors.input.background || 'rgba(59, 130, 246, 0.2)',
+            borderColor: currentTheme?.colors.input.border || 'rgba(255, 255, 255, 0.3)',
             backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
           }"
         >
