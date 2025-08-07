@@ -182,13 +182,13 @@ class ThemeApiService implements ThemeAPI {
   private getDefaultPresets(): ThemePreset[] {
     return [
       {
-        id: 'default',
-        name: 'Default Theme',
-        description: 'Default blue theme with glassmorphism',
+        id: 'glassmorphism',
+        name: 'Glassmorphism',
+        description: 'Modern glass effect with vibrant background',
         config: {
-          id: 'default',
-          name: 'Default Theme',
-          description: 'Default blue theme with glassmorphism',
+          id: 'glassmorphism',
+          name: 'Glassmorphism',
+          description: 'Modern glass effect with vibrant background',
           font: {
             family: 'Inter',
             weights: [300, 400, 500, 600, 700],
@@ -219,7 +219,7 @@ class ThemeApiService implements ThemeAPI {
             repeat: 'no-repeat'
           },
           glassmorphism: {
-            blur: 12,
+            blur: 16,
             opacity: 0.1,
             border: {
               width: 1,
@@ -233,101 +233,50 @@ class ThemeApiService implements ThemeAPI {
         }
       },
       {
-        id: 'dark-purple',
-        name: 'Dark Purple',
-        description: 'Dark theme with purple accents',
+        id: 'flat',
+        name: 'Flat',
+        description: 'Clean flat design with solid colors',
         config: {
-          id: 'dark-purple',
-          name: 'Dark Purple',
-          description: 'Dark theme with purple accents',
+          id: 'flat',
+          name: 'Flat',
+          description: 'Clean flat design with solid colors',
           font: {
-            family: 'Poppins',
+            family: 'Source Sans Pro',
             weights: [300, 400, 500, 600, 700],
             fallback: ['system-ui', 'sans-serif']
           },
           colors: {
-            primary: '#8b5cf6',
-            secondary: '#6366f1',
-            accent: '#a855f7',
-            text: '#ffffff',
-            textSecondary: '#e2e8f0',
-            background: '#1e1b4b',
-            surface: 'rgba(139, 92, 246, 0.1)',
-            border: 'rgba(139, 92, 246, 0.3)',
+            primary: '#2563eb',
+            secondary: '#475569',
+            accent: '#0891b2',
+            text: '#1e293b',
+            textSecondary: '#64748b',
+            background: '#f8fafc',
+            surface: '#ffffff',
+            border: '#e2e8f0',
             input: {
-              background: 'rgba(139, 92, 246, 0.2)',
-              border: 'rgba(139, 92, 246, 0.4)',
-              text: '#ffffff',
-              placeholder: '#c4b5fd',
-              focus: '#8b5cf6'
+              background: '#ffffff',
+              border: '#d1d5db',
+              text: '#1e293b',
+              placeholder: '#9ca3af',
+              focus: '#2563eb'
             }
           },
           background: {
-            type: 'gradient',
-            value: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+            type: 'solid',
+            value: '#f1f5f9'
           },
           glassmorphism: {
-            blur: 16,
-            opacity: 0.15,
+            blur: 0,
+            opacity: 1.0,
             border: {
               width: 1,
-              opacity: 0.3
+              opacity: 1.0
             }
           },
           animations: {
             enabled: true,
-            duration: 400
-          }
-        }
-      },
-      {
-        id: 'forest-green',
-        name: 'Forest Green',
-        description: 'Natural green theme with forest background',
-        config: {
-          id: 'forest-green',
-          name: 'Forest Green',
-          description: 'Natural green theme with forest background',
-          font: {
-            family: 'Nunito',
-            weights: [300, 400, 500, 600, 700],
-            fallback: ['system-ui', 'sans-serif']
-          },
-          colors: {
-            primary: '#059669',
-            secondary: '#10b981',
-            accent: '#34d399',
-            text: '#ffffff',
-            textSecondary: '#d1fae5',
-            background: '#064e3b',
-            surface: 'rgba(5, 150, 105, 0.1)',
-            border: 'rgba(5, 150, 105, 0.3)',
-            input: {
-              background: 'rgba(5, 150, 105, 0.2)',
-              border: 'rgba(5, 150, 105, 0.4)',
-              text: '#ffffff',
-              placeholder: '#a7f3d0',
-              focus: '#059669'
-            }
-          },
-          background: {
-            type: 'image',
-            value: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&h=1080&fit=crop',
-            position: 'center',
-            size: 'cover',
-            repeat: 'no-repeat'
-          },
-          glassmorphism: {
-            blur: 10,
-            opacity: 0.12,
-            border: {
-              width: 1,
-              opacity: 0.25
-            }
-          },
-          animations: {
-            enabled: true,
-            duration: 350
+            duration: 200
           }
         }
       }
