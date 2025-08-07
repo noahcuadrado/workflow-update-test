@@ -1,12 +1,12 @@
 <template>
   <div
-    class="min-h-screen px-4 py-8 flex items-center justify-center relative overflow-hidden transition-all duration-700"
+    class="min-h-screen px-4 py-8 flex items-center justify-center relative overflow-hidden theme-transition"
     :style="backgroundStyle"
   >
     <!-- Settings Button -->
     <button
       @click="toggleSettings"
-      class="fixed top-6 right-6 z-50 backdrop-blur-md bg-white/20 border border-white/30 rounded-full p-3 text-white hover:bg-white/30 transition-all duration-200 shadow-lg"
+      class="fixed top-6 right-6 z-50 theme-button rounded-full p-3 shadow-lg"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -27,30 +27,173 @@
     <!-- Settings Panel -->
     <div
       v-if="showSettings"
-      class="fixed top-20 right-6 z-40 backdrop-blur-md bg-white/20 border border-white/30 rounded-2xl p-6 shadow-xl w-80 transition-all duration-300"
+      class="fixed top-20 right-6 z-40 theme-glass rounded-2xl p-6 shadow-xl w-96 max-h-[80vh] overflow-y-auto theme-transition"
     >
-      <h3 class="text-white text-lg font-medium mb-4">Settings</h3>
+      <h3 class="theme-text text-lg font-medium mb-4 theme-font">Settings</h3>
 
-      <div class="space-y-4">
+      <div class="space-y-6">
+        <!-- Theme Presets -->
         <div>
-          <label class="text-white text-sm font-medium block mb-2">Background</label>
+          <label class="theme-text text-sm font-medium block mb-3 theme-font">Theme Presets</label>
+          <div class="grid grid-cols-1 gap-2">
+            <button
+              v-for="preset in availablePresets"
+              :key="preset.id"
+              @click="selectThemePreset(preset.id)"
+              :class="[
+                'w-full theme-glass border rounded-xl px-4 py-3 theme-text text-sm theme-transition flex items-center justify-between theme-font',
+                currentTheme?.id === preset.id
+                  ? 'ring-2 ring-blue-400'
+                  : 'hover:scale-[1.02]'
+              ]"
+            >
+              <div class="text-left">
+                <div class="font-medium">{{ preset.name }}</div>
+                <div class="text-xs opacity-70">{{ preset.description }}</div>
+              </div>
+              <div v-if="currentTheme?.id === preset.id" class="text-blue-300">
+                ✓
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Font Selection -->
+        <div v-if="currentTheme">
+          <label class="theme-text text-sm font-medium block mb-2 theme-font">Font Family</label>
+          <select
+            :value="currentTheme.font.family"
+            @change="updateThemeProperty('font', { ...currentTheme.font, family: ($event.target as HTMLSelectElement).value })"
+            class="w-full theme-input rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 theme-font"
+          >
+            <option value="Inter">Inter</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Nunito">Nunito</option>
+            <option value="Roboto">Roboto</option>
+            <option value="Source Sans Pro">Source Sans Pro</option>
+            <option value="Open Sans">Open Sans</option>
+            <option value="Lato">Lato</option>
+            <option value="Montserrat">Montserrat</option>
+          </select>
+        </div>
+
+        <!-- Color Customization -->
+        <div v-if="currentTheme">
+          <label class="theme-text text-sm font-medium block mb-3 theme-font">Colors</label>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <label class="theme-text text-xs theme-font">Primary</label>
+              <input
+                type="color"
+                :value="currentTheme.colors.primary"
+                @input="updateThemeColor('primary', ($event.target as HTMLInputElement).value)"
+                class="w-12 h-8 rounded border border-white/30"
+              />
+            </div>
+            <div class="flex items-center justify-between">
+              <label class="theme-text text-xs theme-font">Text Color</label>
+              <input
+                type="color"
+                :value="currentTheme.colors.text"
+                @input="updateThemeColor('text', ($event.target as HTMLInputElement).value)"
+                class="w-12 h-8 rounded border border-white/30"
+              />
+            </div>
+            <div class="flex items-center justify-between">
+              <label class="theme-text text-xs theme-font">Input Background</label>
+              <input
+                type="color"
+                :value="currentTheme.colors.input.background.replace(/rgba?\([^)]+\)/g, '#3b82f6')"
+                @input="updateThemeColor('input.background', `rgba(${parseInt(($event.target as HTMLInputElement).value.slice(1, 3), 16)}, ${parseInt(($event.target as HTMLInputElement).value.slice(3, 5), 16)}, ${parseInt(($event.target as HTMLInputElement).value.slice(5, 7), 16)}, 0.2)`)"
+                class="w-12 h-8 rounded border border-white/30"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Background Settings -->
+        <div v-if="currentTheme">
+          <label class="theme-text text-sm font-medium block mb-3 theme-font">Background</label>
+          <div class="space-y-3">
+            <div>
+              <label class="theme-text text-xs block mb-1 theme-font">Type</label>
+              <select
+                :value="currentTheme.background.type"
+                @change="updateThemeProperty('background', { ...currentTheme.background, type: ($event.target as HTMLSelectElement).value as any })"
+                class="w-full theme-input rounded-xl px-3 py-2 text-xs theme-font"
+              >
+                <option value="image">Image</option>
+                <option value="gradient">Gradient</option>
+                <option value="solid">Solid Color</option>
+              </select>
+            </div>
+            <div>
+              <label class="theme-text text-xs block mb-1 theme-font">
+                {{ currentTheme.background.type === 'image' ? 'Image URL' : currentTheme.background.type === 'gradient' ? 'Gradient CSS' : 'Color' }}
+              </label>
+              <input
+                type="text"
+                :value="currentTheme.background.value"
+                @input="updateThemeProperty('background', { ...currentTheme.background, value: ($event.target as HTMLInputElement).value })"
+                :placeholder="currentTheme.background.type === 'image' ? 'https://...' : currentTheme.background.type === 'gradient' ? 'linear-gradient(...)' : '#ffffff'"
+                class="w-full theme-input rounded-xl px-3 py-2 text-xs theme-font"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Legacy Background Cycling -->
+        <div>
+          <label class="theme-text text-sm font-medium block mb-2 theme-font">Quick Backgrounds</label>
           <button
             @click="cycleBackground"
-            class="w-full backdrop-blur-md bg-blue-600/20 border border-white/30 rounded-xl px-4 py-3 text-white text-sm hover:bg-blue-600/30 transition-all duration-200 flex items-center justify-center gap-2"
+            class="w-full theme-button rounded-xl px-4 py-3 text-sm theme-transition flex items-center justify-center gap-2 theme-font"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"
               ></path>
             </svg>
             Change Background
           </button>
-          <p class="text-white/70 text-xs mt-1">
+          <p class="theme-text-secondary text-xs mt-1 theme-font">
             Current: {{ backgroundImages[currentBackgroundIndex].name }}
           </p>
+        </div>
+
+        <!-- Import/Export Theme -->
+        <div>
+          <label class="theme-text text-sm font-medium block mb-3 theme-font">Theme Management</label>
+          <div class="space-y-2">
+            <button
+              @click="downloadCurrentTheme"
+              class="w-full theme-button rounded-xl px-4 py-2 text-sm theme-transition flex items-center justify-center gap-2 theme-font"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              Export Theme
+            </button>
+            <div class="relative">
+              <input
+                type="file"
+                accept=".json"
+                @change="handleThemeFileUpload"
+                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+              <button
+                class="w-full theme-button rounded-xl px-4 py-2 text-sm theme-transition flex items-center justify-center gap-2 theme-font"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                </svg>
+                Import Theme
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -61,22 +204,14 @@
     <div class="w-full max-w-2xl mx-auto space-y-6 relative z-10 pb-20">
       <!-- Business Description Section -->
       <div
-        class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10"
+        class="theme-glass rounded-3xl p-6 shadow-inner theme-transition hover:shadow-2xl hover:scale-[1.02]"
       >
-        <h2 class="text-white text-2xl font-normal text-left mb-6">Business Description or Idea</h2>
-        <div
-          style="
-            border-radius: 12px;
-            background: rgba(37, 99, 235, 0.2);
-            box-shadow: 0 0 5.333px 0 rgba(211, 209, 202, 0.4) inset;
-            backdrop-filter: blur(2.3063063621520996px);
-          "
-          class="p-6 min-h-[165px] transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/20 focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg focus-within:shadow-blue-500/30"
-        >
+        <h2 class="theme-text text-2xl font-normal text-left mb-6 theme-font">Business Description or Idea</h2>
+        <div class="theme-glass p-6 min-h-[165px] theme-transition hover:shadow-lg focus-within:ring-2 focus-within:ring-blue-400 focus-within:shadow-lg rounded-xl">
           <textarea
             v-model="businessDescription"
             placeholder="Describe your business or idea here"
-            class="w-full h-full bg-transparent text-white placeholder-gray-300 text-sm resize-none outline-none transition-all duration-200"
+            class="w-full h-full bg-transparent theme-text placeholder-gray-300 text-sm resize-none outline-none theme-transition theme-font"
             rows="6"
           ></textarea>
         </div>
@@ -84,11 +219,11 @@
 
       <!-- Mood Scale Section -->
       <div
-        class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10"
+        class="theme-glass rounded-3xl p-6 shadow-inner theme-transition hover:shadow-2xl hover:scale-[1.02]"
       >
         <div class="mb-6">
-          <h2 class="text-white text-2xl font-normal text-left mb-2">Mood Scale</h2>
-          <p class="text-white text-lg font-normal text-left">Mood Scale</p>
+          <h2 class="theme-text text-2xl font-normal text-left mb-2 theme-font">Mood Scale</h2>
+          <p class="theme-text text-lg font-normal text-left theme-font">Mood Scale</p>
         </div>
         <div class="grid grid-cols-7 gap-4">
           <div
@@ -96,31 +231,26 @@
             :key="mood.value"
             @click="selectedMood = mood.value"
             :class="[
-              'p-4 flex flex-col items-center gap-3 cursor-pointer transition-all duration-200 hover:scale-102 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 active:brightness-110',
+              'p-4 flex flex-col items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95',
               selectedMood === mood.value
                 ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                 : '',
             ]"
-            :style="{
-              borderRadius: '12px',
-              background: 'rgba(37, 99, 235, 0.20)',
-              boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
-              backdropFilter: 'blur(2.3063063621520996px)',
-            }"
+            class="theme-glass rounded-xl"
           >
             <div class="text-4xl">{{ mood.emoji }}</div>
-            <div class="text-white text-2xl font-normal">{{ mood.value }}</div>
+            <div class="theme-text text-2xl font-normal theme-font">{{ mood.value }}</div>
           </div>
         </div>
       </div>
 
       <!-- Interests Section -->
       <div
-        class="backdrop-blur-md bg-black/5 rounded-3xl p-6 shadow-inner border border-white/10 transition-all duration-300 hover:backdrop-blur-lg hover:bg-black/10 hover:shadow-2xl hover:border-white/20 hover:scale-[1.02] hover:shadow-white/10"
+        class="theme-glass rounded-3xl p-6 shadow-inner theme-transition hover:shadow-2xl hover:scale-[1.02]"
       >
         <div class="mb-6">
-          <h2 class="text-white text-2xl font-normal text-left mb-2">Your Interests</h2>
-          <p class="text-white text-lg font-normal text-left">
+          <h2 class="theme-text text-2xl font-normal text-left mb-2 theme-font">Your Interests</h2>
+          <p class="theme-text text-lg font-normal text-left theme-font">
             Pick all that apply and add any custom interest
           </p>
         </div>
@@ -131,20 +261,15 @@
               :key="interest.name"
               @click="toggleInterest(interest.name)"
               :class="[
-                'p-4 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:scale-102 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 active:brightness-110',
+                'p-4 flex items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95',
                 selectedInterests.includes(interest.name)
                   ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                   : '',
               ]"
-              :style="{
-                borderRadius: '12px',
-                background: 'rgba(37, 99, 235, 0.20)',
-                boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
-                backdropFilter: 'blur(2.3063063621520996px)',
-              }"
+              class="theme-glass rounded-xl"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="text-white text-xs font-normal text-left flex-1">{{ interest.name }}</div>
+              <div class="theme-text text-xs font-normal text-left flex-1 theme-font">{{ interest.name }}</div>
             </div>
           </div>
           <div class="space-y-3">
@@ -153,20 +278,15 @@
               :key="interest.name"
               @click="toggleInterest(interest.name)"
               :class="[
-                'p-4 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:scale-102 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 active:brightness-110',
+                'p-4 flex items-center gap-3 cursor-pointer theme-transition theme-hover active:scale-95',
                 selectedInterests.includes(interest.name)
                   ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-transparent scale-102 shadow-lg shadow-blue-500/30 outline outline-2 outline-blue-300'
                   : '',
               ]"
-              :style="{
-                borderRadius: '12px',
-                background: 'rgba(37, 99, 235, 0.20)',
-                boxShadow: '0 0 5.333px 0 rgba(211, 209, 202, 0.40) inset',
-                backdropFilter: 'blur(2.3063063621520996px)',
-              }"
+              class="theme-glass rounded-xl"
             >
               <div class="text-4xl">{{ interest.emoji }}</div>
-              <div class="text-white text-xs font-normal text-left flex-1">{{ interest.name }}</div>
+              <div class="theme-text text-xs font-normal text-left flex-1 theme-font">{{ interest.name }}</div>
             </div>
           </div>
         </div>
@@ -175,12 +295,12 @@
 
     <!-- Sticky Footer with Continue Button -->
     <div
-      class="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md bg-black/10 border-t border-white/20 p-4 shadow-lg"
+      class="fixed bottom-0 left-0 right-0 z-40 theme-glass border-t p-4 shadow-lg"
     >
       <div class="w-full max-w-2xl mx-auto flex justify-end">
         <button
           @click="handleContinue"
-          class="backdrop-blur-md bg-blue-600/20 border border-white/30 rounded-3xl px-8 py-3 text-white text-sm font-normal hover:bg-blue-600/30 transition-all duration-200 shadow-inner"
+          class="theme-button rounded-3xl px-8 py-3 text-sm font-normal shadow-inner theme-font"
         >
           Continue
         </button>
@@ -375,7 +495,7 @@ onMounted(async () => {
     // Load available presets
     const presets = await themeApi.listPresets()
     setAvailablePresets(presets)
-
+    
     // Load theme (from localStorage or default)
     await loadTheme()
   } catch (error) {
@@ -385,5 +505,5 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Custom styles if needed */
+/* Component-specific styles if needed */
 </style>
