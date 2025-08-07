@@ -5,7 +5,7 @@ export interface FontConfig {
 }
 
 export interface ColorConfig {
-  primary: string
+  section: string
   secondary: string
   accent: string
   text: string
