@@ -86,11 +86,20 @@ class ThemeApiService implements ThemeAPI {
 
   loadFromJSON(json: string): ThemeConfig {
     try {
+      if (!json || json.trim() === '') {
+        throw new Error('Empty JSON content')
+      }
+
       const theme = JSON.parse(json) as ThemeConfig
       this.validateThemeConfig(theme)
       return theme
     } catch (error) {
-      throw new Error('Invalid JSON format or theme configuration')
+      console.error('JSON parsing error:', error)
+      if (error instanceof SyntaxError) {
+        throw new Error(`Invalid JSON format: ${error.message}`)
+      } else {
+        throw new Error(`Theme validation failed: ${error.message}`)
+      }
     }
   }
 
