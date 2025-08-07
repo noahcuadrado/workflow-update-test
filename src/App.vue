@@ -186,7 +186,12 @@
     <div class="w-full max-w-2xl mx-auto space-y-6 relative z-10 pb-20">
       <!-- Business Description Section -->
       <div
-        class="theme-glass rounded-3xl p-6 shadow-inner theme-transition hover:shadow-2xl hover:scale-[1.02]"
+        class="rounded-3xl p-6 shadow-inner theme-transition hover:shadow-2xl hover:scale-[1.02] border"
+        :style="{
+          backgroundColor: currentTheme?.colors.section || 'rgba(59, 130, 246, 0.15)',
+          borderColor: currentTheme?.colors.border || 'rgba(255, 255, 255, 0.3)',
+          backdropFilter: `blur(${currentTheme?.glassmorphism.blur || 12}px)`
+        }"
       >
         <h2 class="theme-text text-2xl font-normal text-left mb-6 theme-font">Business Description or Idea</h2>
         <div
