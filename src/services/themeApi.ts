@@ -90,7 +90,42 @@ class ThemeApiService implements ThemeAPI {
         throw new Error('Empty JSON content')
       }
 
-      const theme = JSON.parse(json) as ThemeConfig
+      let parsed = JSON.parse(json)
+
+      // Handle theme preset format (with config property)
+      if (parsed.config && !parsed.id) {
+        console.log('Detected theme preset format, extracting config')
+        parsed = parsed.config
+      }
+
+      // Handle array of presets (take first one)
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        console.log('Detected array of presets, taking first one')
+        parsed = parsed[0].config || parsed[0]
+      }
+
+      const theme = parsed as ThemeConfig
+
+      // Add missing glassmorphism if not present (for backward compatibility)
+      if (!theme.glassmorphism) {
+        theme.glassmorphism = {
+          blur: 12,
+          opacity: 0.1,
+          border: {
+            width: 1,
+            opacity: 0.2
+          }
+        }
+      }
+
+      // Add missing animations if not present
+      if (!theme.animations) {
+        theme.animations = {
+          enabled: true,
+          duration: 300
+        }
+      }
+
       this.validateThemeConfig(theme)
       return theme
     } catch (error) {
