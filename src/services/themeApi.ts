@@ -250,7 +250,7 @@ class ThemeApiService implements ThemeAPI {
             fallback: ['system-ui', 'sans-serif']
           },
           colors: {
-            primary: '#3b82f6',
+            section: 'rgba(59, 130, 246, 0.15)',
             secondary: '#64748b',
             accent: '#06b6d4',
             text: '#ffffff',
