@@ -102,7 +102,7 @@
 }
 
 .theme-button:focus {
-  outline: 2px solid var(--theme-color-primary);
+  outline: 2px solid var(--theme-color-section);
   outline-offset: 2px;
 }
 
