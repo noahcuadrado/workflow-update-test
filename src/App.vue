@@ -350,6 +350,7 @@ const businessDescription = ref('')
 const selectedMood = ref<number | null>(null)
 const selectedInterests = ref<string[]>([])
 const showSettings = ref(false)
+const originalPresetThemes = ref<Map<string, any>>(new Map()) // Store original preset states
 
 // Theme system
 const {
